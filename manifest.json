@@ -1,0 +1,13 @@
+{
+    "name": "Make::Booth Stream",
+    "version": "1.0",
+    "description": "make booth stream",
+    "browser_action": {
+        "default_icon": "icon.png",
+        "popup": "popup.html"
+    },
+    "background_page": "background.html",
+    "permissions": [
+        "notifications"
+    ]
+}

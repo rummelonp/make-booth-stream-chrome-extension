@@ -1,0 +1,104 @@
+<body>
+
+</body>
+
+<style>
+
+body {
+    width: 300px;
+    font-size: 12px;
+    font-family: "メイリオ", Meiryo, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0 6px -2px rgba(0, 0, 0, 0.5);
+    background-color: #F5F5F1;
+}
+
+ul li {
+    padding: 5px 5px;
+    border-top: solid 1px white;
+    border-bottom: solid 1px #E0E0DB;
+}
+
+ul li:after {
+    display: block;
+    clear: both;
+    content: "";
+}
+
+ul li .column-left {
+    float: left;
+    width: 50px;
+    height: 80px;
+}
+
+ul li .event {
+    height: 25px;
+    margin-top: 5px;
+    background-position: 15px 0;
+    background-repeat: no-repeat;
+    background-image: url("http://makebooth.com/assets/icon_timeline_category.png");
+}
+
+ul li .column-right {
+    float: right;
+    width: 230px;
+}
+
+.icon_buy {
+    background-position: 15px -28px !important;
+}
+
+.icon_exh {
+    background-position: 15px 0px !important;
+}
+
+.icon_booth {
+    background-position: 15px -55px !important;
+}
+
+.icon_watch {
+    background-position: 15px -83px !important;
+}
+
+.icon_fav {
+    background-position: 15px -109px !important;
+}
+
+</style>
+
+<script>
+
+(function() {
+    var backgroundPage = chrome.extension.getBackgroundPage();
+    var MakeBooth = backgroundPage.MakeBooth;
+    var data = MakeBooth.data;
+    var icons = MakeBooth.EVENT_ICONS;
+    var ul = document.createElement('ul');
+    var html = '';
+    for (var i = data.length - 1; i >= 0; i -= 1) {
+        var datum = data[i];
+        html += [
+            '<li>',
+            '    <div class="column-left">',
+            '        <div class="user-image">',
+            '            <img src="' + datum.user_image_file_name + '" />',
+            '        </div>',
+            '        <div class="event ' + icons[datum.event - 1] + '"></div>',
+            '    </div>',
+            '    <div class="column-right">',
+            '        <div class="text">' + datum.text + '</div>',
+            '    </div>',
+            '</li>'
+        ].join("\n");
+    }
+    ul.innerHTML = html;
+    document.body.appendChild(ul);
+}());
+
+</script>
