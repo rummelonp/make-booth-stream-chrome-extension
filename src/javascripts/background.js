@@ -1,0 +1,3 @@
+(function() {
+  MakeBooth.connect();
+}());
