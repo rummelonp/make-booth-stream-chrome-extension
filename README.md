@@ -9,4 +9,5 @@ Make::Booth のストリームを Chrome で見るための拡張
 
 ## コピーライト
 
-http://sam.zoy.org/wtfpl
+Released under the MIT license  
+[http://www.opensource.org/licenses/MIT](http://www.opensource.org/licenses/MIT)
