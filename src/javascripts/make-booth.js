@@ -33,7 +33,7 @@ var MakeBooth = MakeBooth || (function() {
         HOST + '/img/default_icon.png';
       data.push(datum);
 
-      invoke('message');
+      invoke('message', [datum]);
     };
 
     connection.onclose = function(event) {
@@ -54,17 +54,30 @@ var MakeBooth = MakeBooth || (function() {
   };
 
   var observe = function(name, handler) {
-    if (observers[name]) {
-      observers[name].push(handler);
+    var handlers = observers[name];
+    if (handlers) {
+      handlers.push(handler);
     }
   };
 
-  var invoke = function(name) {
+  var unobserve = function(name, handler) {
+    var handlers = observers[name];
+    if (handlers) {
+      for (var i = handlers.length - 1; i >= 0; i -= 1) {
+        if (handlers[i] == handler) {
+          handlers.splice(i, 1);
+          break;
+        }
+      }
+    }
+  };
+
+  var invoke = function(name, args) {
     var handlers = observers[name];
     for (var i = handlers.length - 1; i >= 0; i -= 1) {
       var handler = handlers[i];
       if (handler) {
-        handler();
+        handler.apply(null, args);
       }
     }
   };
@@ -73,6 +86,7 @@ var MakeBooth = MakeBooth || (function() {
     connect: connect,
     hasConnection: hasConnection,
     getData: getData,
-    observe: observe
+    observe: observe,
+    unobserve: unobserve
   };
 }());
