@@ -1,6 +1,11 @@
 window.addEventListener('load', function() {
   var backgroundPage = chrome.extension.getBackgroundPage();
   var MakeBooth = backgroundPage.MakeBooth;
+
+  if (! MakeBooth.hasConnection()) {
+    MakeBooth.connect();
+  }
+
   var data = MakeBooth.data;
   var icons = MakeBooth.EVENT_ICONS;
   var ul = document.createElement('ul');
