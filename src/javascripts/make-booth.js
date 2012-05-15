@@ -8,9 +8,18 @@ var MakeBooth = MakeBooth || (function() {
 
   var connection = null;
   var data = [];
+  var observers = {
+    open: [],
+    message: [],
+    close: []
+  };
 
   var connect = function() {
     connection = new WebSocket(ACTIVITY_URI);
+
+    connection.onopen = function(event) {
+      invoke('open');
+    };
 
     connection.onmessage = function(event) {
       var datum = JSON.parse(event.data);
@@ -23,10 +32,14 @@ var MakeBooth = MakeBooth || (function() {
         IMAGE_SMALL + datum.user_image_file_name:
         HOST + '/img/default_icon.png';
       data.push(datum);
+
+      invoke('message');
     };
 
     connection.onclose = function(event) {
       connection = null;
+
+      invoke('close');
     };
 
     return connection;
@@ -40,9 +53,26 @@ var MakeBooth = MakeBooth || (function() {
     return data;
   };
 
+  var observe = function(name, handler) {
+    if (observers[name]) {
+      observers[name].push(handler);
+    }
+  };
+
+  var invoke = function(name) {
+    var handlers = observers[name];
+    for (var i = handlers.length - 1; i >= 0; i -= 1) {
+      var handler = handlers[i];
+      if (handler) {
+        handler();
+      }
+    }
+  };
+
   return {
     connect: connect,
     hasConnection: hasConnection,
-    getData: getData
+    getData: getData,
+    observe: observe
   };
 }());
