@@ -43,10 +43,6 @@ ul li .column-right {
   width: 230px;
 }
 
-.icon_buy {
-  background-position: 15px -28px !important;
-}
-
 .icon_exh {
   background-position: 15px 0px !important;
 }
@@ -61,6 +57,10 @@ ul li .column-right {
 
 .icon_fav {
   background-position: 15px -109px !important;
+}
+
+.icon_fav_shop {
+  background-position: 15px -137px !important;
 }
 
 .user-image img {
