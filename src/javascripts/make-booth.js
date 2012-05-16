@@ -20,7 +20,10 @@ var MakeBooth = MakeBooth || (function() {
     connection.onmessage = function(event) {
       var datum = JSON.parse(event.data);
       datum.readed = false;
-      datum.text = datum.text.replace(/href="([^"]+)"/g, 'href="' + HOST + '$1" target="_blank"');
+      datum.text = datum.text
+        .replace(/href="([^"]+)"/g, 'href="' + HOST + '$1" target="_blank"')
+        .replace(/(<[^>]+>)/g, ' $1')
+        .replace(/(<\/[^>]+>)/g, '$1 ');
       datum.event_class = EVENT_ICONS[datum.event - 1];
       datum.created_at = new Date(datum.created_at);
       datum.image_file_name = IMAGE_BIG + datum.image_file_name;
