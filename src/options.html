@@ -8,5 +8,31 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/options.css" />
   </head>
   <body>
+    <div class="container">
+      <h1>Make::Booth Stream Options</h1>
+      <form>
+        <div class="control-group">
+          <label for="user-name">Make::Booth User Name</label>
+          <div class="controls">
+            <input type="text" name="user-name" id="user-name" />
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="notify-event-to-me">自分宛のイベントを通知する</label>
+          <div class="controls">
+            <input type="checkbox" name="notify-event-to-me" id="notify-event-to-me" />
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="notify-new-info">新着情報を通知する</label>
+          <div class="controls">
+            <input type="checkbox" name="notify-new-info" id="notify-new-info" />
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit">保存</button>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
