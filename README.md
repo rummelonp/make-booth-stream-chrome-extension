@@ -1,6 +1,6 @@
 # Make::Booth Stream
 
-Make::Booth（[http://makebooth.com/](http://makebooth.com/)）のストリームを Chrome で見るための拡張
+Make::Booth（[http://makebooth.com/](http://makebooth.com/)）のストリームを Chrome で見る/通知するための拡張
 
 詳細はこちら  
 [http://makebooth.com/i/vaY9G](http://makebooth.com/i/vaY9G)
