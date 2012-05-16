@@ -4,20 +4,25 @@
 
   var action = chrome.browserAction;
 
-  MakeBooth.observe('open', function() {
-    action.setBadgeBackgroundColor({color: GREEN});
-    action.setBadgeText({text: MakeBooth.getData().length.toString()});
-  });
+  var toggleBadge = function() {
+    if (MakeBooth.hasConnection()) {
+      var count = MakeBooth.getUnreadData().length;
+      action.setBadgeBackgroundColor({color: GREEN});
+      if (count > 0) {
+        action.setBadgeText({text: count.toString()});
+      } else {
+        action.setBadgeText({text: ''});
+      }
+    } else {
+      action.setBadgeBackgroundColor({color: RED});
+      action.setBadgeText({text: '!'});
+    }
+  };
 
-  MakeBooth.observe('message', function() {
-    action.setBadgeBackgroundColor({color: GREEN});
-    action.setBadgeText({text: MakeBooth.getData().length.toString()});
-  });
-
-  MakeBooth.observe('close', function() {
-    action.setBadgeBackgroundColor({color: RED});
-    action.setBadgeText({text: '!'});
-  });
+  MakeBooth.on('popup', toggleBadge);
+  MakeBooth.on('open', toggleBadge);
+  MakeBooth.on('message', toggleBadge);
+  MakeBooth.on('close', toggleBadge);
 
   MakeBooth.connect();
 }());

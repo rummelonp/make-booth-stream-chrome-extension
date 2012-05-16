@@ -33,6 +33,7 @@
     } else {
       timeline.appendChild(status);
     }
+    datum.readed = true;
   };
 
   window.addEventListener('load', function() {
@@ -44,15 +45,19 @@
 
     var data = MakeBooth.getData();
     for (var i = data.length - 1; i >= 0; i -= 1) {
-      timeline.appendChild(createStatus(data[i]));
+      var datum = data[i];
+      timeline.appendChild(createStatus(datum));
+      datum.readed = true;
     }
 
-    MakeBooth.observe('message', addStatusToTimeline);
+    MakeBooth.on('message', addStatusToTimeline);
+
+    MakeBooth.trigger('popup');
   }, false);
 
   window.addEventListener('unload', function() {
     timeline = null;
 
-    MakeBooth.unobserve('message', addStatusToTimeline);
+    MakeBooth.off('message', addStatusToTimeline);
   });
 }());
