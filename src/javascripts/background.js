@@ -19,9 +19,41 @@
     }
   };
 
+  var notify = (function() {
+    var icon = 'images/icon19.png';
+    var title = 'Make::Booth Stream';
+
+    var showNotification = function(message) {
+      var notification = webkitNotifications.createNotification(icon, title, message);
+      notification.ondisplay = function() {
+        setTimeout(function() {
+          notification.cancel();
+        }, 5000);
+      };
+      notification.show();
+    };
+
+    return function(datum) {
+      var userName = Configuration.get('user-name');
+
+      if (Configuration.getBoolean('notify-event-to-me')) {
+        if (datum.shop_name_tag == userName) {
+          showNotification(datum.plean_text);
+        }
+      }
+
+      if (Configuration.getBoolean('notify-new-info')) {
+        if (datum.event == MakeBooth.EVENT_EXH) {
+          showNotification(datum.plean_text);
+        }
+      }
+    };
+  }());
+
   MakeBooth.on('popup', toggleBadge);
   MakeBooth.on('open', toggleBadge);
   MakeBooth.on('message', toggleBadge);
+  MakeBooth.on('message', notify);
   MakeBooth.on('close', toggleBadge);
 
   MakeBooth.connect();
