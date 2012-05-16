@@ -1,10 +1,15 @@
 var MakeBooth = MakeBooth || (function() {
-  var HOST         = 'http://makebooth.com';
-  var IMAGE_HOST   = 'http://img.makebooth.com';
-  var IMAGE_SMALL  = IMAGE_HOST + '/scale/c.50x50.';
-  var IMAGE_BIG    = IMAGE_HOST + '/scale/c.170x135.';
-  var EVENT_ICONS  = ['icon_watch', 'icon_exh', 'icon_fav_shop', 'icon_fav','icon_booth'];
-  var ACTIVITY_URI = 'ws://ws.makebooth.com:5678/';
+  var HOST           = 'http://makebooth.com';
+  var IMAGE_HOST     = 'http://img.makebooth.com';
+  var IMAGE_SMALL    = IMAGE_HOST + '/scale/c.50x50.';
+  var IMAGE_BIG      = IMAGE_HOST + '/scale/c.170x135.';
+  var EVENT_ICONS    = ['icon_watch', 'icon_exh', 'icon_fav_shop', 'icon_fav','icon_booth'];
+  var EVENT_WATCH    = 1;
+  var EVENT_EXH      = 2;
+  var EVENT_FAV_SHOP = 3;
+  var EVENT_FAV      = 4;
+  var EVENT_BOOTH    = 5;
+  var ACTIVITY_URI   = 'ws://ws.makebooth.com:5678/';
 
   var connection = null;
   var data = [];
@@ -24,6 +29,7 @@ var MakeBooth = MakeBooth || (function() {
         .replace(/href="([^"]+)"/g, 'href="' + HOST + '$1" target="_blank"')
         .replace(/(<[^>]+>)/g, ' $1')
         .replace(/(<\/[^>]+>)/g, '$1 ');
+      datum.plean_text = datum.text.replace(/<\/?[^>]*>/g, '');
       datum.event_class = EVENT_ICONS[datum.event - 1];
       datum.created_at = new Date(datum.created_at);
       datum.image_file_name = IMAGE_BIG + datum.image_file_name;
@@ -101,6 +107,11 @@ var MakeBooth = MakeBooth || (function() {
   };
 
   return {
+    EVENT_WATCH: EVENT_WATCH,
+    EVENT_EXH: EVENT_EXH,
+    EVENT_FAV_SHOP: EVENT_FAV_SHOP,
+    EVENT_FAV: EVENT_FAV,
+    EVENT_BOOTH: EVENT_BOOTH,
     connect: connect,
     hasConnection: hasConnection,
     getData: getData,
