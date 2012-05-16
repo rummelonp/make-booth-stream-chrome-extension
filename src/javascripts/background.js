@@ -6,7 +6,7 @@
 
   var toggleBadge = function() {
     if (MakeBooth.hasConnection()) {
-      var count = MakeBooth.getData().length;
+      var count = MakeBooth.getUnreadData().length;
       action.setBadgeBackgroundColor({color: GREEN});
       if (count > 0) {
         action.setBadgeText({text: count.toString()});
@@ -19,6 +19,7 @@
     }
   };
 
+  MakeBooth.on('popup', toggleBadge);
   MakeBooth.on('open', toggleBadge);
   MakeBooth.on('message', toggleBadge);
   MakeBooth.on('close', toggleBadge);

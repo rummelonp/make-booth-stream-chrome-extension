@@ -19,6 +19,7 @@ var MakeBooth = MakeBooth || (function() {
 
     connection.onmessage = function(event) {
       var datum = JSON.parse(event.data);
+      datum.readed = false;
       datum.text = datum.text.replace(/href="([^"]+)"/g, 'href="' + HOST + '$1" target="_blank"');
       datum.event_class = EVENT_ICONS[datum.event - 1];
       datum.created_at = new Date(datum.created_at);
@@ -47,6 +48,18 @@ var MakeBooth = MakeBooth || (function() {
 
   var getData = function() {
     return data;
+  };
+
+  var getUnreadData = function() {
+    var unreadData = [];
+    for (var i = 0, l = data.length; i < l; i += 1) {
+      var datum = data[i];
+      if (! datum.readed) {
+        unreadData.push(datum);
+      }
+    }
+
+    return unreadData;
   };
 
   var on = function(name, handler) {
@@ -88,6 +101,7 @@ var MakeBooth = MakeBooth || (function() {
     connect: connect,
     hasConnection: hasConnection,
     getData: getData,
+    getUnreadData: getUnreadData,
     on: on,
     off: off,
     trigger: trigger
