@@ -8,17 +8,13 @@ var MakeBooth = MakeBooth || (function() {
 
   var connection = null;
   var data = [];
-  var observers = {
-    open: [],
-    message: [],
-    close: []
-  };
+  var events = {};
 
   var connect = function() {
     connection = new WebSocket(ACTIVITY_URI);
 
     connection.onopen = function(event) {
-      invoke('open');
+      trigger('open');
     };
 
     connection.onmessage = function(event) {
@@ -33,13 +29,13 @@ var MakeBooth = MakeBooth || (function() {
         HOST + '/img/default_icon.png';
       data.push(datum);
 
-      invoke('message', [datum]);
+      trigger('message', [datum]);
     };
 
     connection.onclose = function(event) {
       connection = null;
 
-      invoke('close');
+      trigger('close');
     };
 
     return connection;
@@ -53,27 +49,33 @@ var MakeBooth = MakeBooth || (function() {
     return data;
   };
 
-  var observe = function(name, handler) {
-    var handlers = observers[name];
-    if (handlers) {
-      handlers.push(handler);
+  var on = function(name, handler) {
+    if (! events[name]) {
+      events[name] = [];
     }
+    events[name].push(handler);
   };
 
-  var unobserve = function(name, handler) {
-    var handlers = observers[name];
-    if (handlers) {
-      for (var i = handlers.length - 1; i >= 0; i -= 1) {
-        if (handlers[i] == handler) {
-          handlers.splice(i, 1);
-          break;
-        }
+  var off = function(name, handler) {
+    var handlers = events[name];
+    if (! handlers) {
+      return;
+    }
+
+    for (var i = handlers.length - 1; i >= 0; i -= 1) {
+      if (handlers[i] == handler) {
+        handlers.splice(i, 1);
+        break;
       }
     }
   };
 
-  var invoke = function(name, args) {
-    var handlers = observers[name];
+  var trigger = function(name, args) {
+    var handlers = events[name];
+    if (! handlers) {
+      return;
+    }
+
     for (var i = handlers.length - 1; i >= 0; i -= 1) {
       var handler = handlers[i];
       if (handler) {
@@ -86,7 +88,8 @@ var MakeBooth = MakeBooth || (function() {
     connect: connect,
     hasConnection: hasConnection,
     getData: getData,
-    observe: observe,
-    unobserve: unobserve
+    on: on,
+    off: off,
+    trigger: trigger
   };
 }());

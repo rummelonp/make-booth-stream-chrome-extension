@@ -19,9 +19,9 @@
     }
   };
 
-  MakeBooth.observe('open', toggleBadge);
-  MakeBooth.observe('message', toggleBadge);
-  MakeBooth.observe('close', toggleBadge);
+  MakeBooth.on('open', toggleBadge);
+  MakeBooth.on('message', toggleBadge);
+  MakeBooth.on('close', toggleBadge);
 
   MakeBooth.connect();
 }());

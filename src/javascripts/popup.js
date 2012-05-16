@@ -47,12 +47,12 @@
       timeline.appendChild(createStatus(data[i]));
     }
 
-    MakeBooth.observe('message', addStatusToTimeline);
+    MakeBooth.on('message', addStatusToTimeline);
   }, false);
 
   window.addEventListener('unload', function() {
     timeline = null;
 
-    MakeBooth.unobserve('message', addStatusToTimeline);
+    MakeBooth.off('message', addStatusToTimeline);
   });
 }());
