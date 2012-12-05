@@ -16,7 +16,7 @@
 
     var formatDate = function(date) {
       return date.getFullYear() + '/' +
-        paddingLeft(date.getMonth(), 2, '0') + '/' +
+        paddingLeft(date.getMonth() + 1, 2, '0') + '/' +
         paddingLeft(date.getDate(), 2, '0') + ' ' +
         paddingLeft(date.getHours(), 2, '0') + ':' +
         paddingLeft(date.getMinutes(), 2, '0');
