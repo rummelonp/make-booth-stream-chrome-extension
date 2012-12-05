@@ -1,7 +1,7 @@
 {
-  "name": "Make::Booth Stream",
+  "name": "makebooth Stream",
   "version": "1.3",
-  "description": "Make::Booth Stream on Google Chrome",
+  "description": "makebooth Stream on Google Chrome",
   "icons": {
     "128": "images/icon128.png",
     "64": "images/icon64.png",
@@ -10,7 +10,7 @@
   },
   "browser_action": {
     "default_icon": "images/icon19.png",
-    "default_title": "Make::Booth Stream",
+    "default_title": "makebooth Stream",
     "popup": "popup.html"
   },
   "background_page": "background.html",

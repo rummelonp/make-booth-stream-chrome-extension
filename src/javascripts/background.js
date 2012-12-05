@@ -21,7 +21,7 @@
 
   var notify = (function() {
     var icon = 'images/icon19.png';
-    var title = 'Make::Booth Stream';
+    var title = 'makebooth Stream';
 
     var showNotification = function(message) {
       var notification = webkitNotifications.createNotification(icon, title, message);

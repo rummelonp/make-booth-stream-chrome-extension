@@ -1,13 +1,13 @@
-# Make::Booth Stream
+# makebooth Stream
 
-Make::Booth（[http://makebooth.com/](http://makebooth.com/)）のストリームを Chrome で見る/通知するための拡張
+makebooth（[http://makebooth.com/](http://makebooth.com/)）のストリームを Chrome で見る/通知するための拡張
 
 詳細はこちら  
 [http://makebooth.com/i/vaY9G](http://makebooth.com/i/vaY9G)
 
 ## Install
 
-[Chrome ウェブストア - Make::Booth Stream](https://chrome.google.com/webstore/detail/dgpfmlbjkhdibgkkcacnjojbedfadlid)
+[Chrome ウェブストア - makebooth Stream](https://chrome.google.com/webstore/detail/dgpfmlbjkhdibgkkcacnjojbedfadlid)
 
 ## Copyright
 
