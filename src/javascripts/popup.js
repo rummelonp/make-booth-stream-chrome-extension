@@ -1,6 +1,7 @@
 (function() {
   var backgroundPage = chrome.extension.getBackgroundPage();
   var MakeBooth = backgroundPage.MakeBooth;
+  var filterEvent = Configuration.get('filter-event');
   var timeline = null;
 
   var createStatus = (function() {
@@ -25,6 +26,7 @@
     return function(datum) {
       var status = document.createElement('li');
       status.className = 'status';
+      status.setAttribute('data-event', datum.event_name);
       status.innerHTML = [
         '<div class="column-left">',
         '  <div class="user-image">',
@@ -54,7 +56,28 @@
     } else {
       timeline.appendChild(status);
     }
+    filterStatus(status);
     datum.readed = true;
+  };
+
+  var filterStatus = function(status) {
+    var event = status.getAttribute('data-event');
+    if (filterEvent == 'all' || event == filterEvent) {
+      status.setAttribute('style', 'display: block;');
+    } else {
+      status.setAttribute('style', 'display: none;');
+    }
+  };
+
+  var refilterStatuses = function() {
+    if (! timeline) {
+      return;
+    }
+
+    var statuses = timeline.querySelectorAll('.status');
+    for (var i = statuses.length - 1; i >= 0; i -= 1) {
+      filterStatus(statuses[i]);
+    }
   };
 
   window.addEventListener('load', function() {
@@ -68,6 +91,14 @@
     for (var i = data.length - 1; i >= 0; i -= 1) {
       addStatusToTimeline(data[i]);
     }
+
+    var eventFilter = document.querySelector('.event-filter');
+    eventFilter.value = filterEvent;
+    eventFilter.addEventListener('change', function() {
+      filterEvent = eventFilter.value;
+      Configuration.set('filter-event', filterEvent);
+      refilterStatuses();
+    }, false);
 
     MakeBooth.on('message', addStatusToTimeline);
 

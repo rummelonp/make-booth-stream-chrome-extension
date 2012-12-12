@@ -3,10 +3,21 @@
   <head>
     <meta charset="utf-8">
     <title>makebooth Stream</title>
+    <script src="javascripts/configuration.js"></script>
     <script src="javascripts/popup.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheets/popup.css" />
   </head>
   <body>
+    イベントフィルター：
+    <select class="event-filter">
+      <option value="all">全て</option>
+      <option value="exh">投稿</option>
+      <option value="fav_shop">チェック</option>
+      <option value="fav">お気に入り</option>
+      <option value="comment">コメント</option>
+      <option value="booth">立ち寄り</option>
+      <option value="watch">ウォッチ</option>
+    </select>
     <ul class="timeline">
     </ul>
   </body>

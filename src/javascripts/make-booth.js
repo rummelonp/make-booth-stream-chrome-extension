@@ -9,6 +9,7 @@ var MakeBooth = MakeBooth || (function() {
   var EVENT_FAV_SHOP = 3;
   var EVENT_FAV      = 4;
   var EVENT_BOOTH    = 5;
+  var EVENT_COMMENT  = 6;
   var ACTIVITY_URI   = 'ws://ws.makebooth.com:5678/';
 
   var connection = null;
@@ -31,6 +32,7 @@ var MakeBooth = MakeBooth || (function() {
         .replace(/(<\/[^>]+>)/g, '$1 ');
       datum.plean_text = datum.text.replace(/<\/?[^>]*>/g, '');
       datum.event_class = EVENT_ICONS[datum.event - 1];
+      datum.event_name = datum.event_class.replace(/^icon_/, '');
       datum.created_at = new Date(datum.created_at);
       datum.image_file_name = IMAGE_BIG + datum.image_file_name;
       datum.image_file_link_path = HOST + datum.image_file_link_path;
@@ -112,6 +114,7 @@ var MakeBooth = MakeBooth || (function() {
     EVENT_FAV_SHOP: EVENT_FAV_SHOP,
     EVENT_FAV: EVENT_FAV,
     EVENT_BOOTH: EVENT_BOOTH,
+    EVENT_COMMENT: EVENT_COMMENT,
     connect: connect,
     hasConnection: hasConnection,
     getData: getData,
