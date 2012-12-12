@@ -66,9 +66,7 @@
 
     var data = MakeBooth.getData();
     for (var i = data.length - 1; i >= 0; i -= 1) {
-      var datum = data[i];
-      timeline.appendChild(createStatus(datum));
-      datum.readed = true;
+      addStatusToTimeline(data[i]);
     }
 
     MakeBooth.on('message', addStatusToTimeline);
