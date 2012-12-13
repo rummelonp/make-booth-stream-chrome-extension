@@ -88,7 +88,7 @@
     timeline = document.querySelector('.timeline');
 
     var data = MakeBooth.getData();
-    for (var i = data.length - 1; i >= 0; i -= 1) {
+    for (var i = 0, l = data.length; i < l; i += 1) {
       addStatusToTimeline(data[i]);
     }
 
