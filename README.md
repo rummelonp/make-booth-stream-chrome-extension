@@ -7,7 +7,7 @@ makebooth（[http://makebooth.com/](http://makebooth.com/)）のストリーム�
 
 ## Install
 
-[Chrome ウェブストア - makebooth Stream](https://chrome.google.com/webstore/detail/dgpfmlbjkhdibgkkcacnjojbedfadlid)
+[Chrome ウェブストア - makebooth Stream](https://chrome.google.com/webstore/detail/makebooth-stream/dgpfmlbjkhdibgkkcacnjojbedfadlid)
 
 ## Copyright
 
