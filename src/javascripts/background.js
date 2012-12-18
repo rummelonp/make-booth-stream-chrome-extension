@@ -23,12 +23,16 @@
     var icon = 'images/icon19.png';
     var title = 'makebooth Stream';
 
-    var showNotification = function(message) {
+    var showNotification = function(message, url) {
       var notification = webkitNotifications.createNotification(icon, title, message);
       notification.ondisplay = function() {
         setTimeout(function() {
           notification.cancel();
         }, 5000);
+      };
+      notification.onclick = function() {
+        open(url);
+        notification.cancel();
       };
       notification.show();
     };
@@ -38,13 +42,13 @@
 
       if (Configuration.getBoolean('notify-event-to-me')) {
         if (datum.shop_name_tag == userName) {
-          showNotification(datum.plean_text);
+          showNotification(datum.plean_text, datum.image_file_link_path);
         }
       }
 
       if (Configuration.getBoolean('notify-new-info')) {
         if (datum.event == MakeBooth.EVENT_EXH) {
-          showNotification(datum.plean_text);
+          showNotification(datum.plean_text, datum.image_file_link_path);
         }
       }
     };
